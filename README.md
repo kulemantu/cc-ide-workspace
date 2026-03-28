@@ -29,6 +29,7 @@ git clone https://github.com/kulemantu/cc-ide-workspace.git my-project
 │   ├── pyproject.toml   # Dependencies and tool config
 │   ├── uv.lock          # Dependency lock file
 │   └── CLAUDE.md        # Python conventions for Claude
+├── docs/                # GUIDES — how-to and pattern docs for this workspace
 ├── .claude/rules/       # SHARED — behavior rules loaded automatically
 ├── .sessions/           # AUTO-MANAGED — Claude's session logs (gitignored)
 ├── .local/              # PRIVATE — credentials, scratch, sensitive data (gitignored)
@@ -40,9 +41,9 @@ git clone https://github.com/kulemantu/cc-ide-workspace.git my-project
 
 **`workspace/`** — This is yours. Drop files here: CSVs, PDFs, notes, documents, images, whatever you're working with. Claude reads from here when you ask it to process something. Generated output — from scripts, analysis, or any Claude-generated content — goes to `workspace/outputs/`. Your files are version-controlled.
 
-**`scripts/`** — This is Claude's. When Claude needs to run code — analyze data, transform files, call APIs, generate reports — it writes Python scripts here. Over time, repeated operations get crystallized into reusable modules in `scripts/src/`. Claude manages dependencies, writes tests, and keeps the code clean. You don't need to touch this folder.
+**`scripts/`** — Managed by Claude. When Claude needs to run code — analyze data, transform files, call APIs, generate reports — it writes Python scripts here. Over time, repeated operations get extracted into reusable modules in `scripts/src/`. Claude manages dependencies, writes tests, and keeps the code clean. You don't need to touch this folder.
 
-**`.sessions/`** — Auto-managed by Claude. Session files (`SESSION-YYYY-MM-DD-task-description.md`) capture what Claude was working on, what decisions were made, and what's next. Claude updates these before context compaction so nothing is lost between conversations. One file per task, not per day — so parallel worktrees don't collide.
+**`.sessions/`** — Auto-managed by Claude. Session files (`SESSION-YYYY-MM-DD-task-description.md`) capture what Claude was working on, what decisions were made, and what's next. Claude updates these before its conversation history is trimmed (context compaction) so nothing is lost between sessions. One file per task, not per day — so parallel worktrees don't collide.
 
 **`.local/`** — Private and gitignored. Credentials, API keys, scratch data, reference documents, one-off scripts, working notes. Anything that shouldn't be committed but is useful for the project. Claude stores operational context here (prompts, runbooks, evidence).
 
@@ -80,7 +81,16 @@ Rules in `.claude/rules/` are loaded automatically. They enforce:
 
 **Python conventions** — Always Python, never bash scripts. Always write tests. Use ruff for linting, pyright for type checking, pytest for testing. All run via `uv`.
 
-**Session discipline** — Claude maintains session files before context compaction. Session files capture progress, decisions, and operational context so future sessions can resume without re-explaining.
+**Session discipline** — Claude saves progress to session files before its conversation history is trimmed. This means future sessions can resume without re-explaining context.
+
+## Docs
+
+The `docs/` directory contains guides for using this workspace across different scenarios. Naming convention:
+
+- `howto-*.md` — task-oriented guides (MCP servers, worktrees, AI orchestration)
+- `pattern-*.md` — reusable strategies (CLI scripts, scripts from prompting, .local directory usage)
+
+These are opinionated patterns for how the workspace is designed to be used — not generic Claude Code documentation. Claude reads these for context when helping you with related tasks.
 
 ## MCP Integrations
 

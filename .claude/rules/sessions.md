@@ -42,7 +42,7 @@ Background, constraints, prior state.
 ## Session Lifecycle
 1. **Capture** — detailed notes, code snippets, investigation steps, credentials
 2. **Review** — check for sensitive information
-3. **Translate** — move useful content to permanent docs
+3. **Translate** — move useful content to permanent docs in `docs/` (see `howto-*.md` and `pattern-*.md` naming convention)
 4. **Update Rules** — if new patterns discovered
 5. **Minify** — reduce to essential format: Task/Outcome/Changes/Docs Updated/Key Decisions/Credentials
 
@@ -55,3 +55,7 @@ Layer 3: .local/            → how to operate it (prompts, runbooks, credential
 ```
 
 Claude reads all three layers to build a complete picture. A new session starts from the code, plus the narrative of how it got there, plus the operational context for working with it.
+
+## .local/ bootstrapping
+
+On first use, if `.local/` contains only `.gitkeep`, create `.local/GUIDE.md` explaining what goes in this directory — content categories, examples, and rules. Reference `docs/pattern-local-directory.md` for the full patterns. This serves as a human-readable guide for anyone browsing the folder.

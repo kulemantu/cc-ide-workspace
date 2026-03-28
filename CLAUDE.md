@@ -19,3 +19,4 @@ Detailed rules live in `.claude/rules/` and are loaded automatically. The essent
 - **Sessions**: maintain a session file in `.sessions/SESSION-YYYY-MM-DD-task-description.md`. Update it before context compaction.
 - **Outputs**: all generated output — from scripts, analysis, or any Claude-generated content — goes to `workspace/outputs/`.
 - **Workspace**: don't reorganize, rename, or move user files in `workspace/` without being asked.
+- **Docs**: guides in `docs/` use `howto-*.md` and `pattern-*.md` naming. Update them when new patterns emerge from sessions.
