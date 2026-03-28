@@ -1,85 +1,116 @@
-# Claude Code Base Project
+# cc-ide-workspace
 
-A ready-to-go project template for working with [Claude Code](https://claude.ai/code). Works for both coding and non-coding tasks — drop in your files, and Claude has a structured workspace with Python available when scripting is the right tool for the job.
+An IDE-first workspace for [Claude Code](https://claude.ai/code). Open it in VS Code, JetBrains, or Cursor — and use the IDE as your primary app for all work, whether that's writing code, analyzing data, drafting documents, or managing projects.
 
-## Why This Exists
+## The Idea
 
-Claude Code runs in a terminal with access to your filesystem. A bare directory works, but you lose out on:
+Instead of switching between terminal, browser, file manager, and multiple apps — **work from one place**. The IDE gives you file browsing, an integrated terminal, MCP tools, and Claude Code side by side. Claude handles the technical plumbing (Python scripts, dependencies, testing) so you can focus on the work itself.
 
-- **Shared rules** that keep Claude consistent across your team (commit style, tooling, session tracking)
-- **A Python environment** so Claude can write and run scripts directly (`uv run python script.py`) instead of cramming logic into `python -c` one-liners in bash
-- **Session files** that survive context compaction — Claude's memory of what it was doing persists locally even when conversation history is trimmed
-- **Guardrails** like no auto-commit, conventional commits, and structured session logs that make AI-assisted work reviewable
+This workspace is structured so Claude knows where to put things, where to find your files, and how to maintain continuity across conversations.
 
 ## Quick Start
 
-### Prerequisites
-- [uv](https://docs.astral.sh/uv/) (Python package manager)
-- Python 3.12+
-
-### Setup
 ```bash
-git clone <this-repo> my-project
-cd my-project
-uv sync
+git clone https://github.com/kulemantu/cc-ide-workspace.git my-project
 ```
 
-That's it. Claude Code will pick up the rules from `.claude/rules/` and `CLAUDE.md` automatically.
+**Open `my-project/` in your IDE** — that's your starting point for everything. Claude manages the Python environment, dependencies, and tooling internally. You don't need to install or configure anything beyond Claude Code itself.
 
-## How to Use
-
-### For coding tasks
-Write application code in `src/new_project/`, tests in `tests/`. The full Python toolchain is configured — ruff, pyright, pytest — all runnable via `uv run`.
-
-### For non-coding tasks
-Drop files (CSVs, PDFs, logs, data) anywhere in the project. When Claude needs to process them, it can write a Python script and run it with `uv run python script.py` rather than fighting with bash one-liners or `python -c`. This matters because:
-
-- Scripts are readable, editable, and rerunnable
-- Dependencies can be added to `pyproject.toml` and installed with `uv sync`
-- Complex logic (data transforms, API calls, file processing) belongs in `.py` files, not shell commands
-
-### For mixed tasks
-Most real work is mixed. You might ask Claude to analyze a CSV, then build a small tool around the analysis. The project structure supports both without switching setups.
-
-## Project Structure
+## Directory Structure
 
 ```
 .
-├── .claude/rules/       # Shared rules (committed, auto-loaded by Claude Code)
-│   ├── git-conventions.md   # Commit style, no auto-push
-│   ├── python-tooling.md    # uv, ruff, pyright
-│   └── sessions.md          # Session file workflow
-├── .sessions/           # Per-task session logs (gitignored)
-├── .local/              # Credentials & scratch data (gitignored)
-├── src/new_project/     # Application source
-├── tests/               # Test suite
-├── CLAUDE.md            # Quick-reference for Claude Code
-└── pyproject.toml       # Python config (deps, ruff, pyright, pytest)
+├── workspace/           # YOUR space — put your files here
+│   ├── outputs/         # Generated output — from scripts and Claude
+│   └── CLAUDE.md        # Workspace rules for Claude
+├── scripts/             # CLAUDE's space — Python code lives here
+│   ├── src/             # Reusable modules Claude builds over time
+│   ├── tests/           # Tests Claude writes for those modules
+│   ├── pyproject.toml   # Dependencies and tool config
+│   ├── uv.lock          # Dependency lock file
+│   └── CLAUDE.md        # Python conventions for Claude
+├── .claude/rules/       # SHARED — behavior rules loaded automatically
+├── .sessions/           # AUTO-MANAGED — Claude's session logs (gitignored)
+├── .local/              # PRIVATE — credentials, scratch, sensitive data (gitignored)
+├── CLAUDE.md            # Guidance for Claude
+└── README.md            # This file
 ```
+
+### What each folder does
+
+**`workspace/`** — This is yours. Drop files here: CSVs, PDFs, notes, documents, images, whatever you're working with. Claude reads from here when you ask it to process something. Generated output — from scripts, analysis, or any Claude-generated content — goes to `workspace/outputs/`. Your files are version-controlled.
+
+**`scripts/`** — This is Claude's. When Claude needs to run code — analyze data, transform files, call APIs, generate reports — it writes Python scripts here. Over time, repeated operations get crystallized into reusable modules in `scripts/src/`. Claude manages dependencies, writes tests, and keeps the code clean. You don't need to touch this folder.
+
+**`.sessions/`** — Auto-managed by Claude. Session files (`SESSION-YYYY-MM-DD-task-description.md`) capture what Claude was working on, what decisions were made, and what's next. Claude updates these before context compaction so nothing is lost between conversations. One file per task, not per day — so parallel worktrees don't collide.
+
+**`.local/`** — Private and gitignored. Credentials, API keys, scratch data, reference documents, one-off scripts, working notes. Anything that shouldn't be committed but is useful for the project. Claude stores operational context here (prompts, runbooks, evidence).
+
+**`.claude/rules/`** — Shared behavior rules that Claude loads automatically. These keep Claude consistent: commit style, Python conventions, session discipline. Rules are committed to the repo so your whole team gets the same Claude behavior.
+
+### What Claude auto-manages
+
+- **Session files** in `.sessions/` — created and updated automatically, capturing progress and decisions
+- **Python environment** in `scripts/` — dependencies installed, code linted and type-checked, tests written
+- **Output files** in `workspace/outputs/` — generated from scripts, analysis, or any Claude-produced content
+
+### Don't touch
+
+- **`scripts/.venv/`** — Claude's virtual environment. Let Claude manage it.
+- **`scripts/uv.lock`** — Dependency lock file. Claude keeps this in sync.
+- **`.sessions/` files** — Claude maintains these for continuity. Editing them won't break anything, but Claude may overwrite your changes.
+
+## Three-Layer Continuity
+
+Claude doesn't start from zero each session. It reads three layers:
+
+```
+Layer 1: Code (git)       → what exists now
+Layer 2: .sessions/       → why it was built, what was tried, what's next
+Layer 3: .local/          → how to operate it (prompts, runbooks, credentials)
+```
+
+This means Claude picks up where it left off — it knows what was decided, what failed, what's pending, and what credentials or context are needed.
 
 ## Rules
 
-Rules in `.claude/rules/` are loaded automatically by Claude Code. They enforce:
+Rules in `.claude/rules/` are loaded automatically. They enforce:
 
-**Git conventions** — conventional commits (`type(scope): description`), no auto-commit or auto-push, batch commits by concern, `--force-with-lease` over `--force`.
+**Git conventions** — Conventional commits (`type(scope): description`). No auto-commit or auto-push — Claude proposes the message and waits for your approval. Commits batched by concern. `--force-with-lease` over `--force`.
 
-**Python tooling** — always `uv run` (never bare `python`), ruff for linting/formatting, pyright for type checking.
+**Python conventions** — Always Python, never bash scripts. Always write tests. Use ruff for linting, pyright for type checking, pytest for testing. All run via `uv`.
 
-**Session tracking** — session files in `.sessions/SESSION-YYYY-MM-DD-task-description.md` capture progress, decisions, and context. One file per task, not per day, so parallel worktrees don't collide. Claude updates the session file before context compaction so nothing is lost.
+**Session discipline** — Claude maintains session files before context compaction. Session files capture progress, decisions, and operational context so future sessions can resume without re-explaining.
 
-## Session Workflow
+## MCP Integrations
 
-Session files are gitignored scratch — they exist for continuity, not for review. The lifecycle:
+MCP (Model Context Protocol) servers extend Claude beyond the filesystem. They work in both the IDE and the terminal.
 
-1. **Capture** — Claude writes detailed notes during work
-2. **Review** — check for sensitive information before sharing
-3. **Translate** — move useful content to permanent docs in `docs/`
-4. **Update Rules** — if new patterns are discovered
-5. **Minify** — reduce to essentials once the task is done
+### Recommended
+
+| Server | What it enables |
+|--------|----------------|
+| **Context7** | Live documentation lookup for any library |
+| **GitHub** | Create/review PRs, manage issues, search code |
+| **Playwright** | Browser automation — navigate, click, screenshot, test |
+
+### Worth adding for team workflows
+
+| Server | What it enables |
+|--------|----------------|
+| **Jira** | Create/update tickets, link PRs to issues |
+| **Slack** | Post deploy notifications, share PR links |
+| **n8n** | Export/import workflows, trigger executions |
+
+### How to set up MCPs
+
+Start with **Context7**. Once you have it, you can ask Claude Code how to set up any other MCP server — Claude will look up the current docs and walk you through it. This applies to everything in this workspace: if you're unsure how something works, ask Claude.
+
+For setup instructions, see the [Claude Code documentation](https://docs.anthropic.com/en/docs/claude-code) or ask Claude directly: *"How do I add the GitHub MCP server?"*
 
 ## Customizing
 
-- **Rename the package**: update `name` in `pyproject.toml`, rename `src/new_project/`, and update `[tool.hatch.build.targets.wheel]`
-- **Add dependencies**: `uv add <package>`
+- **Rename the package**: update `name` in `scripts/pyproject.toml` and rename `scripts/src/new_project/`
 - **Add team rules**: create new `.md` files in `.claude/rules/`
-- **Personal overrides**: use `~/.claude/rules/` for rules that shouldn't be committed (e.g., your sign-off line)
+- **Personal rules**: use `~/.claude/rules/` for rules that shouldn't be committed (e.g., your sign-off line)
+- **Add dependencies**: Claude runs `uv add <package>` from `scripts/` as needed — or ask it to

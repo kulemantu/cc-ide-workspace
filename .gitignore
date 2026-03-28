@@ -10,7 +10,7 @@ build/
 
 # Virtual environments
 .venv/
-venv/
+scripts/.venv/
 
 # Type checking / linting
 .mypy_cache/
@@ -24,6 +24,10 @@ venv/
 # OS
 .DS_Store
 
+# Claude
+.claude/settings.local.json
+
 # Session & local (never commit)
 .sessions/
 .local/
+WORKING-SESSION*.md

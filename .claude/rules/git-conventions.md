@@ -11,5 +11,5 @@
 Each team member should configure their own sign-off. Co-author trailer for AI-assisted commits:
 
 ```
-Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+Co-Authored-By: Claude <noreply@anthropic.com>
 ```

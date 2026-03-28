@@ -3,7 +3,12 @@
 All session data lives under gitignored directories — never in the repo root.
 
 - `.sessions/` — session logs named `SESSION-YYYY-MM-DD-task-description.md` (one per task, not per day — multiple worktrees can run in parallel)
-- `.local/` — credentials, scratch data, artifacts
+- `.local/` — operational context (gitignored):
+  - Credentials & secrets
+  - Analysis & planning docs
+  - Reference data (PDFs, JSON exports, screenshots)
+  - One-off scratch scripts
+  - AI prompts and working notes
 
 ## Rules
 - Never commit contents of `.sessions/` or `.local/`
@@ -40,3 +45,13 @@ Background, constraints, prior state.
 3. **Translate** — move useful content to permanent docs
 4. **Update Rules** — if new patterns discovered
 5. **Minify** — reduce to essential format: Task/Outcome/Changes/Docs Updated/Key Decisions/Credentials
+
+## Three-Layer Continuity Model
+
+```
+Layer 1: Code (git)         → what exists now
+Layer 2: .sessions/         → why it was built, what was tried, what's next
+Layer 3: .local/            → how to operate it (prompts, runbooks, credentials, evidence)
+```
+
+Claude reads all three layers to build a complete picture. A new session starts from the code, plus the narrative of how it got there, plus the operational context for working with it.

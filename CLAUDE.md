@@ -2,30 +2,20 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Commands
+## Project Layout
 
-```bash
-uv sync                        # Install dependencies
-uv run pytest                  # Run all tests
-uv run pytest tests/test_foo.py::test_bar  # Run a single test
-uv run ruff check .            # Lint
-uv run ruff format .           # Format
-uv run pyright                 # Type check
-uv run python -m new_project   # Run the app
-```
+This is a Claude Code base project with three zones:
 
-Always use `uv run` — never bare `python` or `python -m`.
-
-## Architecture
-
-- **src layout**: application code lives in `src/new_project/`, tests in `tests/`
-- **Build backend**: hatchling
-- **Python**: 3.12+
+- **`workspace/`** — the user's space. Notes, documents, data files. Committed to git. Script outputs go to `workspace/outputs/`.
+- **`scripts/`** — Python environment. Modules in `src/`, tests in `tests/`, managed by uv. See `scripts/CLAUDE.md` for commands.
+- **`.local/`** — private operational context. Credentials, reference data, scratch work, one-off scripts. Gitignored.
 
 ## Key Rules
 
 Detailed rules live in `.claude/rules/` and are loaded automatically. The essentials:
 
-- **Git**: no auto-commit or auto-push — propose the message and wait for approval. Conventional commits (`type(scope): description`), batched by concern.
-- **Sessions**: maintain a session file in `.sessions/SESSION-YYYY-MM-DD-task-description.md`. Update it before context compaction — it's the recovery point.
-- **Tooling**: ruff for lint/format, pyright for types, pytest for tests — all via `uv run`.
+- **Git**: no auto-commit or auto-push. Propose the message and wait for approval. Conventional commits (`type(scope): description`), batched by concern.
+- **Python**: always Python, never bash scripts. Always write tests. Run everything via `uv run` from `scripts/`.
+- **Sessions**: maintain a session file in `.sessions/SESSION-YYYY-MM-DD-task-description.md`. Update it before context compaction.
+- **Outputs**: all generated output — from scripts, analysis, or any Claude-generated content — goes to `workspace/outputs/`.
+- **Workspace**: don't reorganize, rename, or move user files in `workspace/` without being asked.
