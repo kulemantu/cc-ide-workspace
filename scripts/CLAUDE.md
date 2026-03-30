@@ -13,7 +13,7 @@ uv run pytest tests/test_foo.py::test_bar  # Run a single test
 uv run ruff check .                        # Lint
 uv run ruff format .                       # Format
 uv run pyright                             # Type check
-uv run python src/new_project/my_script.py # Run a script
+uv run python src/my_script.py             # Run a script
 ```
 
 Always use `uv run` — never bare `python`.
@@ -24,14 +24,14 @@ Always use `uv run` — never bare `python`.
 
 - **Python over bash**: always write scripts in Python, not bash. Python scripts are testable, readable, and run in the managed environment.
 - **Always write tests**: every module in `src/` should have a corresponding test in `tests/`.
-- **Output files**: all generated output goes to `workspace/outputs/`, not here.
+- **Output files**: all generated output goes to `workspace/.outputs/`, not here.
 - **Input files**: read user files from `workspace/` or `.local/`.
 - **Dependencies**: add with `uv add <package>` from this directory.
 - **One-off scratch scripts**: put in `.local/` at the project root, not here. `src/` is for reusable code.
 
 ## Structure
 
-- `src/new_project/` — installable package. Claude adds modules here as the project needs them.
+- `src/` — reusable modules. Claude adds modules here as the project needs them.
 - `tests/` — tests for `src/` modules.
 - `pyproject.toml` — dependencies and tool config (ruff, pyright, pytest).
 - `.venv/` — managed by uv, gitignored.
