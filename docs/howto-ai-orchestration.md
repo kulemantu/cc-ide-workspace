@@ -8,7 +8,7 @@ This workspace has a managed Python environment with dependency management. That
 2. Claude adds the API client as a dependency: `uv add openai` or `uv add httpx`
 3. Claude writes a script in `scripts/src/` that calls the API
 4. API credentials go in `.local/` or as environment variables
-5. Output goes to `workspace/outputs/`
+5. Output goes to `workspace/.outputs/`
 
 ## Adding API clients
 
@@ -42,7 +42,7 @@ Or use environment variables. Claude can read `.env` files from `.local/`.
 When working with LLM APIs, prompts should be versioned code — not throwaway strings:
 
 ```python
-# scripts/src/new_project/prompts.py
+# scripts/src/prompts.py
 ANALYSIS_PROMPT = """
 You are a data analyst. Given the following CSV data:
 {data}
@@ -74,14 +74,14 @@ This lets you swap between OpenRouter (many models), OpenAI (GPT), and Ollama (l
 
 Claude would:
 1. Add `httpx` to dependencies
-2. Write `scripts/src/new_project/image_gen.py` with `--prompt`, `--output`, `--model` flags
+2. Write `scripts/src/image_gen.py` with `--prompt`, `--output`, `--model` flags
 3. Read the API key from `.local/openrouter-key.txt`
-4. Save the image to `workspace/outputs/cover-image.png`
+4. Save the image to `workspace/.outputs/cover-image.png`
 5. Write a test in `scripts/tests/test_image_gen.py`
 
 ## Output
 
-All generated content goes to `workspace/outputs/`:
+All generated content goes to `workspace/.outputs/`:
 - Generated images
 - Transcriptions
 - Analysis reports

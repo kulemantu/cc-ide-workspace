@@ -48,5 +48,5 @@ MCP servers are configured in Claude Code's settings. The configuration is share
 ## In this workspace
 
 - API credentials for MCP servers go in `.local/` (gitignored, never committed)
-- MCP-generated output (screenshots, exports, reports) goes to `workspace/outputs/`
+- MCP-generated output (screenshots, exports, reports) goes to `workspace/.outputs/`
 - If an MCP interaction produces reusable logic, Claude moves it to `scripts/src/`

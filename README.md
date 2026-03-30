@@ -21,7 +21,7 @@ git clone https://github.com/kulemantu/cc-ide-workspace.git my-project
 ```
 .
 ├── workspace/           # YOUR space — put your files here
-│   ├── outputs/         # Generated output — from scripts and Claude
+│   ├── .outputs/        # Generated output — from scripts and Claude
 │   └── CLAUDE.md        # Workspace rules for Claude
 ├── scripts/             # CLAUDE's space — Python code lives here
 │   ├── src/             # Reusable modules Claude builds over time
@@ -39,7 +39,7 @@ git clone https://github.com/kulemantu/cc-ide-workspace.git my-project
 
 ### What each folder does
 
-**`workspace/`** — This is yours. Drop files here: CSVs, PDFs, notes, documents, images, whatever you're working with. Claude reads from here when you ask it to process something. Generated output — from scripts, analysis, or any Claude-generated content — goes to `workspace/outputs/`. Your files are version-controlled.
+**`workspace/`** — This is yours. Drop files here: CSVs, PDFs, notes, documents, images, whatever you're working with. Claude reads from here when you ask it to process something. Generated output — from scripts, analysis, or any Claude-generated content — goes to `workspace/.outputs/`. Your files are version-controlled.
 
 **`scripts/`** — Managed by Claude. When Claude needs to run code — analyze data, transform files, call APIs, generate reports — it writes Python scripts here. Over time, repeated operations get extracted into reusable modules in `scripts/src/`. Claude manages dependencies, writes tests, and keeps the code clean. You don't need to touch this folder.
 
@@ -53,7 +53,7 @@ git clone https://github.com/kulemantu/cc-ide-workspace.git my-project
 
 - **Session files** in `.sessions/` — created and updated automatically, capturing progress and decisions
 - **Python environment** in `scripts/` — dependencies installed, code linted and type-checked, tests written
-- **Output files** in `workspace/outputs/` — generated from scripts, analysis, or any Claude-produced content
+- **Output files** in `workspace/.outputs/` — generated from scripts, analysis, or any Claude-produced content
 
 ### Don't touch
 
@@ -120,7 +120,7 @@ For setup instructions, see the [Claude Code documentation](https://docs.anthrop
 
 ## Customizing
 
-- **Rename the package**: update `name` in `scripts/pyproject.toml` and rename `scripts/src/new_project/`
+- **Rename the package**: update `name` in `scripts/pyproject.toml`
 - **Add team rules**: create new `.md` files in `.claude/rules/`
 - **Personal rules**: use `~/.claude/rules/` for rules that shouldn't be committed (e.g., your sign-off line)
 - **Add dependencies**: Claude runs `uv add <package>` from `scripts/` as needed — or ask it to

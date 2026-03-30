@@ -12,5 +12,5 @@ paths:
 - Use `pyright` for type checking
 - **Always write scripts in Python, not bash.** Python scripts are testable, readable, and run in the managed environment.
 - **Always write tests.** Every module in `scripts/src/` should have a corresponding test in `scripts/tests/`.
-- Script outputs go to `workspace/outputs/**/*`. Input files come from `workspace/` or `.local/`.
+- Script outputs go to `workspace/.outputs/**/*`. Input files come from `workspace/` or `.local/`.
 - One-off scratch scripts go in `.local/`, not `scripts/src/`. The `src/` directory is for reusable code.
