@@ -20,3 +20,7 @@ Detailed rules live in `.claude/rules/` and are loaded automatically. The essent
 - **Outputs**: all generated output — from scripts, analysis, or any Claude-generated content — goes to `workspace/.outputs/`.
 - **Workspace**: don't reorganize, rename, or move user files in `workspace/` without being asked.
 - **Docs**: guides in `docs/` use `howto-*.md` and `pattern-*.md` naming. Update them when new patterns emerge from sessions.
+
+## Hooks
+
+Hooks in `.claude/hooks/` enforce key rules automatically via `.claude/settings.json`. They block bare `python` (must use `uv run`), protect `workspace/` and `.sessions/` from deletion, validate conventional commit format, require approval for `git push`, auto-format Python with ruff, and inject session context on startup and before compaction. See `docs/howto-hooks.md` for details.
