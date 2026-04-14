@@ -30,4 +30,6 @@ scripts/.venv/
 # Session & local (never commit)
 .sessions/
 .local/
+.scratchpads/
+.scratchpad/
 WORKING-SESSION*.md
