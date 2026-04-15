@@ -2,14 +2,16 @@
 
 When you ask Claude the same thing repeatedly — "deploy this," "seed the database," "run the smoke tests" — the natural evolution is to extract that into a script. These scripts are artifacts of Claude Code usage patterns, crystallized into reusable automation.
 
+> **Prerequisite:** Before reaching for a script, work through the [task escalation ladder](pattern-task-escalation.md). Scripting is Tier 3 — only after model context (Tier 0), existing CLI tools (Tier 1), and new CLI tools (Tier 2) have been considered. Claude tracks repeated operations as "routines" in memory and escalates suggestions over time.
+
 ## The lifecycle
 
 ```
 Repeated prompt → One-off script (.local/) → Reusable module (scripts/src/) → Tested CLI tool
 ```
 
-1. **Repeated prompt**: You ask Claude the same thing 3+ times
-2. **One-off script**: Claude writes a quick script in `.local/` to automate it
+1. **Repeated prompt**: Claude has tracked the same routine 3+ times via memory
+2. **One-off script**: Claude writes a quick script in `.local/` to automate it (with user approval)
 3. **Reusable module**: The script proves useful, moves to `scripts/src/`
 4. **Tested CLI tool**: Claude adds argparse, `--help`, `--dry-run`, and tests
 
