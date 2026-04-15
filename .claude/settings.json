@@ -3,41 +3,10 @@
     "PreToolUse": [
       {
         "matcher": "Bash",
-        "if": "Bash(python *)",
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/enforce_uv_run.py"
-          }
-        ]
-      },
-      {
-        "matcher": "Bash",
-        "if": "Bash(rm *)",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/protect_workspace.py"
-          }
-        ]
-      },
-      {
-        "matcher": "Bash",
-        "if": "Bash(git commit *)",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/check_commit_format.py"
-          }
-        ]
-      },
-      {
-        "matcher": "Bash",
-        "if": "Bash(git push *)",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/require_push_approval.py"
+            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/pre_bash_check.py"
           }
         ]
       }
