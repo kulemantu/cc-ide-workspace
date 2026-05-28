@@ -24,10 +24,16 @@ scripts/.venv/
 # OS
 .DS_Store
 
+# Microsoft Office lock / temp files
+~$*
+
 # Claude
 .claude/settings.local.json
 
 # Session & local (never commit)
 .sessions/
 .local/
+.scratchpads/
+.scratchpad/
+workspace/.local-files/
 WORKING-SESSION*.md

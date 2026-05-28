@@ -1,10 +1,10 @@
 # Pattern: CLI Scripts
 
-When you find yourself asking Claude the same thing repeatedly, the natural evolution is a script. These scripts live in `scripts/src/` and are designed to be called both by you and by Claude.
+When a task has graduated through the [task escalation ladder](pattern-task-escalation.md) — model context and CLI tools aren't enough, and the operation has been repeated enough to justify automation — it's time for a script. These scripts live in `scripts/src/` and are designed to be called both by you and by Claude.
 
 ## When to build a script
 
-If you've asked Claude the same thing 3+ times, it's time for a script. Common triggers:
+If Claude has tracked the same routine 3+ times in memory, and the task can't be handled by a single CLI tool, it's time for a script. Common triggers:
 
 - "Set up the dev environment"
 - "Seed the database with test data"

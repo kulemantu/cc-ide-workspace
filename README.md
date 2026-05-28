@@ -20,26 +20,34 @@ git clone https://github.com/kulemantu/cc-ide-workspace.git my-project
 
 ```
 .
-├── workspace/           # YOUR space — put your files here
-│   ├── .outputs/        # Generated output — from scripts and Claude
-│   └── CLAUDE.md        # Workspace rules for Claude
-├── scripts/             # CLAUDE's space — Python code lives here
-│   ├── src/             # Reusable modules Claude builds over time
-│   ├── tests/           # Tests Claude writes for those modules
-│   ├── pyproject.toml   # Dependencies and tool config
-│   ├── uv.lock          # Dependency lock file
-│   └── CLAUDE.md        # Python conventions for Claude
-├── docs/                # GUIDES — how-to and pattern docs for this workspace
-├── .claude/rules/       # SHARED — behavior rules loaded automatically
-├── .sessions/           # AUTO-MANAGED — Claude's session logs (gitignored)
-├── .local/              # PRIVATE — credentials, scratch, sensitive data (gitignored)
-├── CLAUDE.md            # Guidance for Claude
-└── README.md            # This file
+├── workspace/             # YOUR space — one sub-folder per workstream
+│   ├── example-workstream/  # Worked example — copy this shape, then rename it
+│   │   ├── .source/         # Read-only canonical inputs (tracked)
+│   │   ├── draft/           # Your canonical markdown (tracked)
+│   │   ├── .scratchpads/    # Working drafts (gitignored, created on demand)
+│   │   ├── .outputs/        # Generated output (tracked)
+│   │   └── CLAUDE.md        # Folder purpose
+│   └── CLAUDE.md            # Workspace rules + naming conventions
+├── scripts/               # CLAUDE's space — Python code lives here
+│   ├── src/               # Reusable modules Claude builds over time
+│   ├── tests/             # Tests Claude writes for those modules
+│   ├── pyproject.toml     # Dependencies and tool config
+│   ├── uv.lock            # Dependency lock file
+│   └── CLAUDE.md          # Python conventions for Claude
+├── docs/                  # GUIDES — how-to, pattern, and reference docs
+├── .claude/rules/         # SHARED — behavior rules loaded automatically
+├── .sessions/             # AUTO-MANAGED — Claude's session logs (gitignored)
+├── .local/                # PRIVATE — credentials, scratch, sensitive data (gitignored)
+├── TODO.md                # Day-level working tracker
+├── CHANGELOG.md           # Reverse-chronological log of significant changes
+├── MAINTAINERS.md         # Operational guide for maintainers
+├── CLAUDE.md              # Guidance for Claude
+└── README.md              # This file
 ```
 
 ### What each folder does
 
-**`workspace/`** — This is yours. Drop files here: CSVs, PDFs, notes, documents, images, whatever you're working with. Claude reads from here when you ask it to process something. Generated output — from scripts, analysis, or any Claude-generated content — goes to `workspace/.outputs/`. Your files are version-controlled.
+**`workspace/`** — This is yours. It's organised as one sub-folder per workstream (a project, a deliverable, a research thread). Each sub-folder owns its own zones: `.source/` for read-only inputs you received, `draft/` for the canonical markdown you author, `.scratchpads/` for gitignored working drafts, and `.outputs/` for generated content. `workspace/example-workstream/` is a worked example — copy that shape, then rename it. Your files are version-controlled. See `docs/howto-workspace-conventions.md` for the full reference.
 
 **`scripts/`** — Managed by Claude. When Claude needs to run code — analyze data, transform files, call APIs, generate reports — it writes Python scripts here. Over time, repeated operations get extracted into reusable modules in `scripts/src/`. Claude manages dependencies, writes tests, and keeps the code clean. You don't need to touch this folder.
 
@@ -53,7 +61,7 @@ git clone https://github.com/kulemantu/cc-ide-workspace.git my-project
 
 - **Session files** in `.sessions/` — created and updated automatically, capturing progress and decisions
 - **Python environment** in `scripts/` — dependencies installed, code linted and type-checked, tests written
-- **Output files** in `workspace/.outputs/` — generated from scripts, analysis, or any Claude-produced content
+- **Output files** in `workspace/<subfolder>/.outputs/` — generated from scripts, analysis, or any Claude-produced content, scoped to each workstream
 
 ### Don't touch
 
@@ -87,8 +95,11 @@ Rules in `.claude/rules/` are loaded automatically. They enforce:
 
 The `docs/` directory contains guides for using this workspace across different scenarios. Naming convention:
 
-- `howto-*.md` — task-oriented guides (MCP servers, worktrees, AI orchestration)
-- `pattern-*.md` — reusable strategies (CLI scripts, scripts from prompting, .local directory usage)
+- `howto-*.md` — task-oriented guides (MCP servers, worktrees, workspace conventions)
+- `pattern-*.md` — reusable strategies (CLI scripts, scripts from prompting, frame-scoped workspaces)
+- `initiative-*.md` — summary of a workstream or initiative (scope, status, artefacts)
+- `deliverable-*.md` — a specific deliverable with its source-of-truth pointer
+- `reference-*.md` — reference material (glossaries, cheatsheets, data dictionaries)
 
 These are opinionated patterns for how the workspace is designed to be used — not generic Claude Code documentation. Claude reads these for context when helping you with related tasks.
 
