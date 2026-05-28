@@ -6,9 +6,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 An IDE-first workspace where Claude Code handles technical plumbing (Python scripts, dependencies, testing) while the user focuses on their work. Three zones:
 
-- **`workspace/`** — the user's space. Notes, documents, data files. Committed to git. Script outputs go to `workspace/.outputs/`.
+- **`workspace/`** — the user's space. Notes, documents, data files. Committed to git. Organised as **one sub-folder per workstream** (`workspace/<subfolder>/`); each sub-folder owns its own `.source/`, `draft/`, `.scratchpads/`, `.outputs/`. See `workspace/CLAUDE.md` and `docs/howto-workspace-conventions.md`.
 - **`scripts/`** — Python environment. Modules in `src/`, tests in `tests/`, managed by uv (Python 3.12+). See `scripts/CLAUDE.md` for conventions.
 - **`.local/`** — private operational context. Credentials, reference data, scratch work, one-off scripts. Gitignored.
+
+Root-level trackers — `TODO.md` (day-level checklist), `CHANGELOG.md` (significant changes), `MAINTAINERS.md` (operational guide).
 
 ## Commands
 
@@ -36,9 +38,9 @@ Detailed rules live in `.claude/rules/` and are loaded automatically. The essent
 - **Git**: no auto-commit or auto-push. Propose the message and wait for approval. Conventional commits (`type(scope): description`), batched by concern.
 - **Python** (when scripting is justified): always Python, not bash scripts. Always write tests. Run everything via `uv run` from `scripts/`.
 - **Sessions**: maintain a session file in `.sessions/SESSION-YYYY-MM-DD-task-description.md`. Update it before context compaction.
-- **Outputs**: all generated output goes to `workspace/.outputs/`.
+- **Outputs**: generated output goes to `workspace/<subfolder>/.outputs/` — scoped to its workstream, not a single top-level drawer.
 - **Workspace**: don't reorganize, rename, or move user files in `workspace/` without being asked.
-- **Docs**: guides in `docs/` use `howto-*.md` and `pattern-*.md` naming. Update them when new patterns emerge from sessions.
+- **Docs**: guides in `docs/` use `howto-*`, `pattern-*`, `initiative-*`, `deliverable-*`, `reference-*` naming (see `.claude/rules/docs.md`). Update them when new patterns emerge from sessions.
 
 ## Hooks
 
