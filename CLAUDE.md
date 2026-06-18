@@ -4,10 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Layout
 
-This is a Claude Code base project with three zones:
+This is a Claude Code base project with these zones:
 
 - **`workspace/`** — the user's space. Notes, documents, data files. Committed to git. Script outputs go to `workspace/.outputs/`.
 - **`scripts/`** — Python environment. Modules in `src/`, tests in `tests/`, managed by uv. See `scripts/CLAUDE.md` for commands.
+- **`apps/`** — self-contained, shareable tools/CLIs (one folder per app: entry point + tests + README). Lift-out-and-run-elsewhere, vs. `scripts/` which is internal plumbing. May diverge from the uv default (e.g. stdlib-only) — documented per app. See `docs/pattern-apps.md`.
 - **`.local/`** — private operational context. Credentials, reference data, scratch work, one-off scripts. Gitignored.
 
 ## Key Rules
