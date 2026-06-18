@@ -29,6 +29,7 @@ git clone https://github.com/kulemantu/cc-ide-workspace.git my-project
 │   ├── pyproject.toml   # Dependencies and tool config
 │   ├── uv.lock          # Dependency lock file
 │   └── CLAUDE.md        # Python conventions for Claude
+├── apps/                # SHAREABLE TOOLS — self-contained CLIs, one folder per app
 ├── docs/                # GUIDES — how-to and pattern docs for this workspace
 ├── .claude/rules/       # SHARED — behavior rules loaded automatically
 ├── .sessions/           # AUTO-MANAGED — Claude's session logs (gitignored)
@@ -42,6 +43,8 @@ git clone https://github.com/kulemantu/cc-ide-workspace.git my-project
 **`workspace/`** — This is yours. Drop files here: CSVs, PDFs, notes, documents, images, whatever you're working with. Claude reads from here when you ask it to process something. Generated output — from scripts, analysis, or any Claude-generated content — goes to `workspace/.outputs/`. Your files are version-controlled.
 
 **`scripts/`** — Managed by Claude. When Claude needs to run code — analyze data, transform files, call APIs, generate reports — it writes Python scripts here. Over time, repeated operations get extracted into reusable modules in `scripts/src/`. Claude manages dependencies, writes tests, and keeps the code clean. You don't need to touch this folder.
+
+**`apps/`** — Self-contained, shareable tools. Where `scripts/` is internal plumbing for *this* workspace, an app is something you could lift out and run elsewhere — one folder per app, each with its own entry point, tests, and `README.md`, and a self-documenting CLI (`--help`, `--json`). See `docs/pattern-apps.md`.
 
 **`.sessions/`** — Auto-managed by Claude. Session files (`SESSION-YYYY-MM-DD-task-description.md`) capture what Claude was working on, what decisions were made, and what's next. Claude updates these before its conversation history is trimmed (context compaction) so nothing is lost between sessions. One file per task, not per day — so parallel worktrees don't collide.
 
@@ -88,7 +91,7 @@ Rules in `.claude/rules/` are loaded automatically. They enforce:
 The `docs/` directory contains guides for using this workspace across different scenarios. Naming convention:
 
 - `howto-*.md` — task-oriented guides (MCP servers, worktrees, AI orchestration)
-- `pattern-*.md` — reusable strategies (CLI scripts, scripts from prompting, .local directory usage)
+- `pattern-*.md` — reusable strategies (CLI scripts, the `apps/` folder type, scripts from prompting, .local directory usage)
 
 These are opinionated patterns for how the workspace is designed to be used — not generic Claude Code documentation. Claude reads these for context when helping you with related tasks.
 
