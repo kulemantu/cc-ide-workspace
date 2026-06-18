@@ -31,3 +31,14 @@ scripts/.venv/
 .sessions/
 .local/
 WORKING-SESSION*.md
+
+# Env files (keep the committed templates)
+*.env
+.env
+!*.env.example
+!.env.example
+
+# apps/ generated media + outputs (land next to the input)
+*.mp3
+*.transcript.md
+*.notes.md
