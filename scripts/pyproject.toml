@@ -5,6 +5,9 @@ description = ""
 requires-python = ">=3.12"
 dependencies = []
 
+[tool.uv]
+package = false
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
