@@ -2,6 +2,7 @@
 paths:
   - "scripts/**/*.py"
   - "scripts/pyproject.toml"
+  - "apps/**/*.py"
 ---
 
 # Python Tooling

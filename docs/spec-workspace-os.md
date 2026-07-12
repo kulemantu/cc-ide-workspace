@@ -67,6 +67,10 @@ Relations follow PROV-O-style vocabulary where possible:
 
 ## Directory taxonomy
 
+This is the target v2 layout. The specification PR does not create these paths;
+the roadmap adds them in separate Phase 3 branches while preserving the current
+v1 layout until each migration lands.
+
 Root:
 
 ```text
@@ -116,9 +120,9 @@ Definitions:
 - `workspace/<workstream>/prep/`: agendas, prep notes, planning material.
 - `workspace/<workstream>/outputs/`: generated or delivered artifacts.
 - `workspace/<workstream>/scratchpad/`: working drafts and temporary notes,
-  gitignored by default.
+  required to be gitignored when the workstream layout is introduced.
 - `workspace/<workstream>/.local/`: private operational context for that
-  workstream, gitignored.
+  workstream, also required to be gitignored during that migration.
 
 ## Metadata and indexes
 
@@ -273,8 +277,9 @@ Inputs:
 - person/stakeholder;
 - confidentiality/share profile.
 
-Outputs go to `workspace/<workstream>/outputs/` unless the user specifies a
-different destination.
+The current v1 default remains `workspace/.outputs/`. When the Phase 3
+workstream migration lands, the default becomes
+`workspace/<workstream>/outputs/` unless the user specifies another destination.
 
 ## Sharing
 
