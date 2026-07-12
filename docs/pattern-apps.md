@@ -31,8 +31,44 @@ Rule of thumb: if you'd send it to a colleague to run on their machine, it's an
 ## Tooling carve-out
 
 The workspace default (`.claude/rules/python-tooling.md`) is `uv` / `ruff` /
-`pyright`, run from `scripts/`. Some apps are deliberately **stdlib-only +
+`pyright`, run from `scripts/`. Apps always use `uv run python3` as their
+invocation — both inside this workspace and externally — since `uv` is a single
+binary that installs in one command. Some apps are deliberately **stdlib-only +
 `unittest`** for zero-install portability — e.g. `transcriber-prioritizer`, so it
-runs on any box with `python3` + `ffmpeg`. This is an intentional, documented
-divergence, not drift: state it in the app's README, and keep such apps free of
-`pip install` requirements.
+runs on any box with `python3` + `uv` + `ffmpeg` with no `pip install` step. This
+is an intentional, documented divergence from `ruff`/`pyright`, not drift: state it
+in the app's README, and keep such apps free of `pip install` requirements.
+
+## When scripts graduate to apps
+
+A script in `scripts/src/` is a candidate for `apps/` when:
+
+1. It's **self-contained** — doesn't import other `scripts/src/` modules
+2. It's **general** — useful outside this workspace (you'd send it to a colleague)
+3. It has a **CLI interface** — `--help`, subcommands, `--json` output
+4. It has **tests** alongside it
+
+The graduation path: `.local/` (scratch) -> `scripts/src/` (reusable) ->
+`apps/<name>/` (shareable). Moving to `apps/` means giving it its own directory,
+README, and dependency story.
+
+## Making apps discoverable
+
+Apps with a CLI can expose **Claude Code skills** in `.claude/skills/` so
+collaborators find them via `/` autocomplete without reading docs.
+
+The discovery path:
+
+1. **`README.md`** lists all apps in a table (name, one-liner, requirements, skill)
+2. **`apps/<name>/README.md`** documents available skills and common options
+3. **`.claude/skills/<action>.md`** is a thin wrapper: check prerequisites, guide
+   setup if missing, run the CLI, report results
+
+Conventions:
+
+- Skill name = the user-facing **action verb** (`transcribe`), not the directory
+  name (`transcriber-prioritizer`). One skill per user-facing action.
+- The skill handles onboarding: if prerequisites (API keys, system deps) are
+  missing, it guides the user through setup instead of failing.
+- The app's CLI is the engine; the skill is the TUI integration layer. Don't
+  duplicate logic — the skill calls the CLI.

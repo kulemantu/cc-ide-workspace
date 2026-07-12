@@ -17,9 +17,10 @@ If you've asked Claude the same thing 3+ times, it's time for a script. Common t
 | Location | When to use |
 |----------|-------------|
 | `scripts/src/` | Reusable code — modules, utilities, CLI tools |
+| `apps/<name>/` | Shareable tools — lift-out-and-run-elsewhere (see `docs/pattern-apps.md`) |
 | `.local/` | One-off scratch scripts — experiments, quick hacks |
 
-Scripts graduate from `.local/` to `scripts/src/` when they prove useful across sessions.
+Scripts graduate from `.local/` to `scripts/src/` when they prove useful across sessions. Scripts graduate further from `scripts/src/` to `apps/<name>/` when they're general enough to run outside this workspace — self-contained with their own README, tests, and dependency story.
 
 ## Script conventions
 
