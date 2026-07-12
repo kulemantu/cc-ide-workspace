@@ -316,30 +316,13 @@ Rules:
 The folder is the tenant. The console provisions and summarizes; it does not own
 the workspace's source of truth.
 
-## Phase 3 implementation sketch
+## Implementation roadmap
 
-Research-independent:
+Deferred implementation tasks live in
+`docs/roadmap-workspace-os.md`. The spec defines the target architecture; the
+roadmap is the master list for separate, testable branches.
 
-- `scripts/src/agents_sync.py` with tests;
-- split canonical `AGENTS.md` from harness-specific deltas;
-- generated `CLAUDE.md`, `.codex/`, and opencode adapter;
-- staleness check in commit gate;
-- create `memory/` and route reflection to it.
-
-Research-informed:
-
-- `scripts/src/wsindex/` generator from artifact frontmatter;
-- `journal/`, `_inbox/`, `_STATUS.md`;
-- skills: `/brief`, `/agenda`, `/meeting-notes`, `/invoice`, `/scope`.
-
-Instance plumbing:
-
-- `scripts/src/sharepack.py`;
-- `policies/` skeleton;
-- `.mcp.json.example`;
-- `ctl ws new|status` in `~/space/ctl`.
-
-## Success tests
+## Target success tests
 
 - Fresh clone works with the PM pitch: open IDE, chat, no manual runtime hunt.
 - Codex/Claude/opencode read the same canonical instructions through adapters.
