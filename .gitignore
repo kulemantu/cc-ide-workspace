@@ -32,6 +32,15 @@ scripts/.venv/
 .local/
 WORKING-SESSION*.md
 
+# Private work-in-progress and browser captures (review before sharing)
+workspace/**/scratchpad/
+screenshots/
+.playwright-mcp/
+playwright-report/
+test-results/
+*.har
+*.trace.zip
+
 # Env files (keep the committed templates)
 *.env
 .env

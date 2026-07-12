@@ -84,6 +84,20 @@ Layer 3: .local/          → how to operate it (prompts, runbooks, credentials)
 
 This means Claude picks up where it left off — it knows what was decided, what failed, what's pending, and what credentials or context are needed.
 
+## Before a PR or external share
+
+Run one local gate from the repository root:
+
+```bash
+uv run --project scripts python3 scripts/src/workspace_check.py verify
+```
+
+Raw screenshots, browser captures, exports, and client evidence belong in
+`.local/` or the ignored capture paths. The gate blocks private-path and
+high-confidence secret findings and flags media for manual review. See
+[`docs/howto-share-safely.md`](docs/howto-share-safely.md) for the redaction and
+audience checklist.
+
 ## Rules
 
 Rules in `.claude/rules/` are loaded automatically. They enforce:

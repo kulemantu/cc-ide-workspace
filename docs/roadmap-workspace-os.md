@@ -23,16 +23,18 @@ Implementation tasks below should become separate branches with their own tests.
   - `scripts/` is a non-package uv environment.
   - `uv run pytest` has a template smoke test instead of failing with "no tests
     collected".
+- Share hygiene:
+  - `workspace_check.py` provides one verification command and a staged-file
+    confidentiality check.
+  - Raw screenshot, browser-capture, and workstream scratch paths are ignored.
+  - `docs/howto-share-safely.md` defines the manual media-review boundary.
 
 ## Verification for current branch
 
 Run from the repository root unless noted:
 
 ```bash
-cd scripts && uv run pytest
-cd scripts && uv run ruff check .
-cd scripts && uv run pyright
-cd apps/transcriber-prioritizer && uv run python3 -m unittest test_transcribe_call -v
+uv run --project scripts python3 scripts/src/workspace_check.py verify
 ```
 
 Expected results:
@@ -93,6 +95,8 @@ Add `policies/` skeleton and `scripts/src/sharepack.py`.
 Success criteria:
 
 - Share pack excludes `.local/`, scratchpads, credentials, and private sessions.
+- Binary/media files require explicit review or policy allowlisting before they
+  can enter a share pack.
 - Share manifest lists included and excluded paths with reasons.
 - Policy checks distinguish blocking structural failures from advisory workflow
   hygiene.

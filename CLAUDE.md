@@ -37,6 +37,13 @@ uv run python3 apps/transcriber-prioritizer/transcribe_call.py --help
 cd apps/transcriber-prioritizer && uv run python3 -m unittest test_transcribe_call -v
 ```
 
+Before a PR or any external share, run the single workspace gate from the repo
+root:
+
+```bash
+uv run --project scripts python3 scripts/src/workspace_check.py verify
+```
+
 Never use bare `python` — always `uv run` so commands use the managed environment.
 
 ## Key Rules
@@ -47,5 +54,6 @@ Detailed rules live in `.claude/rules/` and are loaded automatically. The essent
 - **Python**: always Python, never bash scripts. Always write tests. Run everything via `uv run` — from `scripts/` for the managed environment, or from the app directory for apps.
 - **Sessions**: maintain a session file in `.sessions/SESSION-YYYY-MM-DD-task-description.md`. Update it before context compaction.
 - **Outputs**: all generated output — from scripts, analysis, or any Claude-generated content — goes to `workspace/.outputs/`.
+- **Confidentiality**: raw screenshots, browser captures, exports, and client evidence start in `.local/` or another ignored capture path. Do not commit, quote, attach, or upload them until the user approves the destination and the sanitized derivative passes `workspace_check.py hygiene --staged`. See `docs/howto-share-safely.md`.
 - **Workspace**: don't reorganize, rename, or move user files in `workspace/` without being asked.
 - **Docs**: guides in `docs/` use `howto-*.md` and `pattern-*.md` naming. Update them when new patterns emerge from sessions.

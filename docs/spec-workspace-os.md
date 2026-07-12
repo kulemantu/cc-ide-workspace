@@ -173,6 +173,8 @@ Generated outputs:
 | Dangling required references | Commit gate | Block | Provenance graph is broken. |
 | Stale generated adapters | Commit gate | Block | Harnesses would run divergent rules. |
 | Secret files in tracked/shareable paths | Commit gate | Block | Prevent obvious data leaks. |
+| Files tracked from private capture paths | Commit gate | Block | Raw screenshots, traces, and scratch material are private by default. |
+| New binary/media artifacts | Pre-share check | Advise and require manual review | Text scanning cannot inspect pixels or embedded metadata. |
 | Workspace path confinement violations | Runtime hook/adapter | Block | Prevent tools from touching unrelated folders. |
 | Missing optional metadata | SessionStart/status | Advise | Useful hygiene, but should not stop work. |
 | Orphaned files | SessionStart/status | Advise | Some files may be intentionally temporary. |
@@ -288,11 +290,17 @@ Share packs should be deterministic zips created from policy:
 - include selected workstreams, generated catalogs, and deliverables;
 - exclude `.local/`, scratchpads, credentials, raw private sessions, and
   policy-marked non-shareable files;
+- treat screenshots, browser traces, PDFs, Office documents, and recordings as
+  private until a sanitized derivative is explicitly approved for the audience;
 - include a manifest of included/excluded paths and reasons;
 - include enough memory/policy context for a recipient agent to answer "query my
   mind" questions within the shared scope.
 
 Config belongs in `policies/sharing.yml`.
+
+Until share packs exist, `scripts/src/workspace_check.py` is the minimum
+pre-commit/pre-share gate. It intentionally does not replace manual review of
+binary files. See `docs/howto-share-safely.md`.
 
 ## MCP and credentials
 
