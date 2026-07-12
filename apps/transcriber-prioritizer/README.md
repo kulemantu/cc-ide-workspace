@@ -24,12 +24,13 @@ critical. See the docstring in `transcribe_call.py` for the full rationale.
 
 ## Requirements
 
+- [`uv`](https://docs.astral.sh/uv/getting-started/installation/)
 - `ffmpeg` on PATH
 - Python 3 (stdlib only — no `pip install`)
 - `OPENROUTER_API_KEY` in the environment (never passed on argv)
 
 > Stdlib-only + `unittest` is a deliberate divergence from the workspace
-> `uv`/`ruff`/`pyright` default, so this tool runs on any box with `python3` +
+> `ruff`/`pyright` default, so this tool runs on any box with `uv` + `python3` +
 > `ffmpeg`. See `docs/pattern-apps.md` › *Tooling carve-out*.
 
 ## Setup
@@ -45,15 +46,15 @@ set -a; . .env; set +a        # load OPENROUTER_API_KEY into the environment
 
 ```bash
 # Whole pipeline (extract → diarize → notes)
-python3 transcribe_call.py all --input /path/to/call.mov --model google/gemini-2.5-pro --json
+uv run python3 transcribe_call.py all --input /path/to/call.mov --model google/gemini-2.5-pro --json
 
 # Individual steps
-python3 transcribe_call.py extract    --input call.mov
-python3 transcribe_call.py transcribe --input call.mov --model google/gemini-2.5-pro
-python3 transcribe_call.py notes      --transcript call.transcript.md
+uv run python3 transcribe_call.py extract    --input call.mov
+uv run python3 transcribe_call.py transcribe --input call.mov --model google/gemini-2.5-pro
+uv run python3 transcribe_call.py notes      --transcript call.transcript.md
 
 # Help / all flags
-python3 transcribe_call.py --help
+uv run python3 transcribe_call.py --help
 ```
 
 Outputs land next to the input: `<file>.mp3`, `<file>.transcript.md`,
@@ -62,10 +63,24 @@ Outputs land next to the input: `<file>.mp3`, `<file>.transcript.md`,
 Optional `--speakers "Alice (PM), Bob (eng), Carol (client)"` feeds a roster
 hint to improve attribution.
 
+## Claude Code Skills
+
+If you're using this workspace with Claude Code, the following skills are available (type `/` in Claude Code to see them):
+
+| Skill | What it does | Example |
+|-------|-------------|---------|
+| `/transcribe` | Full pipeline: extract → diarize → notes | `/transcribe path/to/call.mov` |
+
+Common options you can include in the skill args:
+- Add speaker names: `/transcribe call.mov --speakers "Alice (PM), Bob (eng)"`
+- Use a specific model: `/transcribe call.mov --model google/gemini-2.5-pro`
+
+For individual pipeline steps or advanced flags, use the CLI directly (see Usage above).
+
 ## Tests
 
 ```bash
-python3 -m unittest test_transcribe_call -v
+uv run python3 -m unittest test_transcribe_call -v
 ```
 
 ## Roadmap (future — not yet built)

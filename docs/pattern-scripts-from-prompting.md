@@ -5,13 +5,14 @@ When you ask Claude the same thing repeatedly — "deploy this," "seed the datab
 ## The lifecycle
 
 ```
-Repeated prompt → One-off script (.local/) → Reusable module (scripts/src/) → Tested CLI tool
+Repeated prompt → One-off script (.local/) → Reusable module (scripts/src/) → Tested CLI tool → Shareable app (apps/)
 ```
 
 1. **Repeated prompt**: You ask Claude the same thing 3+ times
 2. **One-off script**: Claude writes a quick script in `.local/` to automate it
 3. **Reusable module**: The script proves useful, moves to `scripts/src/`
 4. **Tested CLI tool**: Claude adds argparse, `--help`, `--dry-run`, and tests
+5. **Shareable app**: The tool is general enough to lift out of this workspace — it moves to `apps/<name>/` with its own README, tests, and dependency story. See `docs/pattern-apps.md`.
 
 ## Common script categories
 
