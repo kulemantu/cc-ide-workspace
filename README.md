@@ -44,7 +44,7 @@ Self-contained tools in `apps/` — each has its own README, tests, and CLI. Use
 
 | App | What it does | Requirements | Skill |
 |-----|-------------|-------------|-------|
-| [transcriber-prioritizer](apps/transcriber-prioritizer/) | Call recording → diarized transcript → structured notes | `ffmpeg`, `OPENROUTER_API_KEY` | `/transcribe` |
+| [transcriber-prioritizer](apps/transcriber-prioritizer/) | Call recording → diarized transcript → structured notes | `uv`, `ffmpeg`, `OPENROUTER_API_KEY` | `/transcribe` |
 
 ### What each folder does
 

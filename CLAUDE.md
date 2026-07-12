@@ -25,7 +25,7 @@ uv run pytest tests/test_foo.py::test_bar  # Run a single test
 uv run ruff check .                        # Lint
 uv run ruff format .                       # Format
 uv run pyright                             # Type check
-uv run python src/my_script.py             # Run a script
+uv run python3 src/my_script.py            # Run a script
 uv sync                                    # Sync deps when .venv is missing or deps change
 uv add <package>                           # Add a dependency
 ```

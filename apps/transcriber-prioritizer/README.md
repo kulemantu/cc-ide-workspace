@@ -24,7 +24,7 @@ critical. See the docstring in `transcribe_call.py` for the full rationale.
 
 ## Requirements
 
-- [`uv`](https://docs.astral.sh/uv/getting-started/installation/) (`curl -LsSf https://astral.sh/uv/install.sh | sh`)
+- [`uv`](https://docs.astral.sh/uv/getting-started/installation/)
 - `ffmpeg` on PATH
 - Python 3 (stdlib only — no `pip install`)
 - `OPENROUTER_API_KEY` in the environment (never passed on argv)

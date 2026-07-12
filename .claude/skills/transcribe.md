@@ -25,7 +25,7 @@ Run these two checks. If either fails, guide the user through setup instead of r
 ### 1. OPENROUTER_API_KEY
 
 ```bash
-echo "${OPENROUTER_API_KEY:+set}" || echo "not set"
+if [ -n "${OPENROUTER_API_KEY:-}" ]; then echo "set"; else echo "not set"; fi
 ```
 
 If not set, tell the user:
