@@ -11,6 +11,11 @@ def test_private_capture_paths_block_tracking() -> None:
     assert any(finding.severity == "BLOCK" for finding in findings)
 
 
+def test_private_capture_paths_block_mixed_case_tracking() -> None:
+    findings = inspect_path("workspace/client/Screenshots/raw-dashboard.png")
+    assert any(finding.severity == "BLOCK" for finding in findings)
+
+
 def test_media_outside_capture_paths_requires_manual_review() -> None:
     findings = inspect_path("docs/sanitized-workflow.png")
     assert [finding.severity for finding in findings] == ["WARN"]

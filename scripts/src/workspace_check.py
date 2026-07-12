@@ -55,12 +55,13 @@ class Finding:
 def inspect_path(path: str) -> list[Finding]:
     """Return deterministic path/media findings without reading file content."""
     parsed = PurePosixPath(path)
-    parts = set(parsed.parts)
     name = parsed.name
     lower_name = name.lower()
     findings: list[Finding] = []
 
-    private_parts = sorted(parts & PRIVATE_PARTS)
+    private_parts = sorted(
+        part for part in parsed.parts if part.lower() in PRIVATE_PARTS
+    )
     if private_parts:
         findings.append(
             Finding(
