@@ -56,7 +56,7 @@ Every script in `scripts/src/` gets a corresponding test in `scripts/tests/`. Cl
 | Data seeding | Create test records with `--dry-run` and `--count` flags |
 | Environment setup | Check/install prerequisites, create configs, verify health |
 | Smoke tests | Hit API endpoints, verify responses, report pass/fail |
-| Report generation | Read input from `workspace/`, write output to `workspace/.outputs/` |
+| Report generation | Read input from `workspace/`, write output to `workspace/<subfolder>/.outputs/` |
 | Database migration | Transform data with preview mode and rollback support |
 
 ## Key insight: scripts for AI agents

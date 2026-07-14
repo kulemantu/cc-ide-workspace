@@ -24,7 +24,7 @@ Always use `uv run` — never bare `python`.
 
 - **Python over bash**: always write scripts in Python, not bash. Python scripts are testable, readable, and run in the managed environment.
 - **Always write tests**: every module in `src/` should have a corresponding test in `tests/`.
-- **Output files**: all generated output goes to `workspace/.outputs/`, not here.
+- **Output files**: all generated output goes to `workspace/<subfolder>/.outputs/`, not here.
 - **Input files**: read user files from `workspace/` or `.local/`.
 - **Dependencies**: add with `uv add <package>` from this directory.
 - **One-off scratch scripts**: put in `.local/` at the project root, not here. `src/` is for reusable code.

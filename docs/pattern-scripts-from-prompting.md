@@ -22,7 +22,7 @@ Repeated prompt → One-off script (.local/) → Reusable module (scripts/src/) 
 | Environment setup | "Set up the dev environment" | Config generation, service startup, health checks |
 | Data seeding | "Seed the database with test data" | Idempotent record creation with `--dry-run` |
 | Integration tests | "Check if the deploy worked" | API endpoint health checks, webhook verification |
-| Report generation | "Generate a summary of this data" | Read from `workspace/`, write to `workspace/.outputs/` |
+| Report generation | "Generate a summary of this data" | Read from `workspace/`, write to `workspace/<subfolder>/.outputs/` |
 | Auth setup | "Configure Keycloak for this service" | Token acquisition, role creation, mapper config |
 | Multi-repo coordination | "Commit these changes across both repos" | Batched conventional commits across directories |
 
@@ -52,4 +52,4 @@ Ask yourself: "Have I asked Claude to do this before?"
 - One-off scripts start in `.local/` (gitignored, scratch)
 - Proven scripts graduate to `scripts/src/` (committed, tested)
 - Every script in `scripts/src/` gets tests in `scripts/tests/`
-- Output always goes to `workspace/.outputs/`
+- Output always goes to `workspace/<subfolder>/.outputs/`

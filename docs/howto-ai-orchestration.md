@@ -8,7 +8,7 @@ This workspace has a managed Python environment with dependency management. That
 2. Claude adds the API client as a dependency: `uv add openai` or `uv add httpx`
 3. Claude writes a script in `scripts/src/` that calls the API
 4. API credentials go in `.local/` or as environment variables
-5. Output goes to `workspace/.outputs/`
+5. Output goes to `workspace/<subfolder>/.outputs/`
 
 ## Adding API clients
 
@@ -76,12 +76,12 @@ Claude would:
 1. Add `httpx` to dependencies
 2. Write `scripts/src/image_gen.py` with `--prompt`, `--output`, `--model` flags
 3. Read the API key from `.local/openrouter-key.txt`
-4. Save the image to `workspace/.outputs/cover-image.png`
+4. Save the image to `workspace/<subfolder>/.outputs/cover-image.png`
 5. Write a test in `scripts/tests/test_image_gen.py`
 
 ## Output
 
-All generated content goes to `workspace/.outputs/`:
+All generated content goes to `workspace/<subfolder>/.outputs/`:
 - Generated images
 - Transcriptions
 - Analysis reports
