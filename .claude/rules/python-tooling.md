@@ -13,7 +13,7 @@ When a task reaches the scripting tier (see `scripting-philosophy.md`), Python i
 - Use `ruff` for linting/formatting, not `black` or `flake8`
 - Use `pyright` for type checking
 - **Always write tests.** Every module in `scripts/src/` should have a corresponding test in `scripts/tests/`.
-- Script outputs go to `workspace/.outputs/**/*`. Input files come from `workspace/` or `.local/`.
+- Script outputs go to `workspace/<subfolder>/.outputs/**/*`. Input files come from `workspace/` or `.local/`. 
 - One-off scratch scripts go in `.local/`, not `scripts/src/`. The `src/` directory is for reusable code.
 
 Note: "always Python, never bash" applies to *scripts* (multi-step, reusable code). Single CLI tool invocations (ffmpeg, imagemagick, curl, jq) are fine as direct Bash calls — see `scripting-philosophy.md`.
